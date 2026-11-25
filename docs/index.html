@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human-carried indirect sensing</title>
+<meta name="description" content="A person carries a smartwatch and a smartphone across a flexible deck. Simulation pages.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{color-scheme:light;--paper:#f4f1ea;--panel:#ffffff;--ink:#1f2a36;--ink2:#5c6670;--rule:#ddd6c8;--soft:#ece7dd;
+--accent:#0e7c86;--hi:#e3f1f2;--blue:var(--accent);--red:#c0392b;--gridline:#e6e2da;
+--ramp:#e0a030,#d0603a,#a03c70,#3a6f9a,#16324f;
+--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+--cond:var(--sans)}
+*{box-sizing:border-box}
+html,body{background:var(--paper)}
+body{margin:0;color:var(--ink);font:15px/1.6 var(--sans)}
+.sheet{max-width:1440px;margin:0 auto;padding:24px 32px 22px}
+@media (max-width:700px){.sheet{padding:14px 12px}}
+.head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;background:var(--panel);
+border:1px solid var(--rule);border-top:4px solid var(--accent);border-radius:8px;padding:18px 22px}
+.kicker{font:600 13px var(--sans);color:var(--accent)}
+h1{font:600 32px/1.15 var(--sans);margin:4px 0 8px;letter-spacing:-.01em;color:var(--ink)}
+@media (max-width:700px){h1{font-size:26px}}
+.lead{margin:0;max-width:680px;color:var(--ink2)}
+.tblock{border-collapse:collapse;font:13px var(--sans);min-width:280px}
+.tblock th,.tblock td{border-bottom:1px solid var(--soft);padding:5px 10px;text-align:left}
+.tblock th{font-weight:500;color:var(--ink2);width:90px}
+.nav{display:flex;gap:6px;margin:16px 0 4px;flex-wrap:wrap}
+.nav a{font:500 13px var(--sans);color:var(--ink);text-decoration:none;padding:6px 13px;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+.nav a.cur{background:var(--accent);border-color:var(--accent);color:#fff}
+.nav a:hover:not(.cur){border-color:var(--accent);color:var(--accent)}
+section{margin-top:30px}
+h2{font:600 19px var(--sans);margin:0 0 8px;display:flex;align-items:center;gap:10px}
+h2 .num{display:inline-flex;width:24px;height:24px;border-radius:5px;background:var(--accent);color:#fff;align-items:center;justify-content:center;font:600 12px var(--sans)}
+.hint{font-size:13.5px;color:var(--ink2);margin:4px 0 10px;max-width:920px}
+button{font:500 13px var(--sans);color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+button:disabled{opacity:.55;cursor:default}
+.cmd{display:none;font:12.5px var(--mono);background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:8px 10px;margin:0;white-space:pre-wrap}
+.foot{margin-top:32px;padding-top:12px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink2)}
+a{color:var(--accent)}
+
+.fig{border:1px solid var(--rule);border-radius:8px;background:#fff;position:relative;padding:34px 10px 10px;margin-top:20px}
+.fig img{width:100%;height:auto;display:block}
+.fig .tag{position:absolute;top:8px;left:12px;font:600 13px var(--sans);color:var(--ink2)}
+.sheets{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.sheets a{display:block;padding:14px 16px 16px;border:1px solid var(--rule);border-radius:8px;color:var(--ink);text-decoration:none;background:#fff}
+.sheets a:hover{border-color:var(--blue)}
+.sheets .no{font:500 12.5px var(--sans);color:var(--blue)}
+.sheets b{display:block;font:600 18px/1.25 var(--sans);margin:2px 0 4px}
+.sheets span{font-size:13.5px;color:var(--ink2)}
+dl.spec{display:grid;grid-template-columns:150px 1fr;margin:0;background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:4px 8px}
+dl.spec dt,dl.spec dd{margin:0;padding:8px 10px;border-bottom:1px solid var(--soft)}
+dl.spec dt{font:600 14px var(--sans);color:var(--ink)}
+@media (max-width:560px){dl.spec{grid-template-columns:1fr}dl.spec dt{border-bottom:0;padding-bottom:0}}
+</style></head><body><div class="sheet">
+<header class="head">
+  <div>
+    <div class="kicker">Simulation code and results</div>
+    <h1>Human-carried indirect sensing</h1>
+    <p class="lead">A person carries a smartwatch and a smartphone across a flexible deck. The model solves the person and the deck together and records what the devices measure.</p>
+  </div>
+  <table class="tblock">
+    <tr><th>Deck</th><td>OpenSeesPy, simply supported</td></tr>
+    <tr><th>Person</th><td>15 DOF, walking or standing</td></tr>
+    <tr><th>Devices</th><td>triaxial, wrist and hip</td></tr>
+    <tr><th>By</th><td>J. Babazade, LSU</td></tr>
+  </table>
+</header>
+
+<div class="fig"><span class="tag">One crossing of the deck</span><img src="assets/crossing.gif" alt="A person walks across the deck. Below, the vertical acceleration of the left wrist and left hip devices."></div>
+
+<section>
+  <h2><span class="num">1</span>Parameter explorer</h2>
+  <p class="hint">Ten parameters, every pair already simulated. Sweep one and compare the deck with the two devices. Click a deck peak to see its mode shape and whether each device found it. Gait lines and the observability index of every mode are shown with it.</p>
+  <div class="sheets">
+    <a href="explorer-walking.html"><span class="no">Explorer</span><b>Walking person</b><span>20 crossings per configuration. 1207 stored.</span></a>
+    <a href="explorer-standing.html"><span class="no">Explorer</span><b>Standing person</b><span>20 records of 60 s at mid-span. 1015 stored.</span></a>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">2</span>Animations</h2>
+  <p class="hint">The baseline deck. Deck motion is exaggerated, the person is to scale.</p>
+  <div class="sheets">
+    <a href="walk-2d.html"><span class="no">Animation</span><b>Walking, side view</b><span>One crossing at 1.5 m/s.</span></a>
+    <a href="walk-3d.html"><span class="no">Animation</span><b>Walking, 3D</b><span>The same crossing in 3D.</span></a>
+    <a href="stand-2d.html"><span class="no">Animation</span><b>Standing, side view</b><span>Standing at mid-span.</span></a>
+    <a href="stand-3d.html"><span class="no">Animation</span><b>Standing, 3D</b><span>The same record in 3D.</span></a>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">3</span>The model</h2>
+  <dl class="spec">
+    <dt>Deck</dt><dd>Any flexible deck a person walks on: a floor slab, a footbridge, a walkway. Baseline is a 14 m concrete slab, 3 m wide, 0.2 m thick.</dd>
+    <dt>Person</dt><dd>Five masses in three directions. Walking force, step timing and arm swing are included.</dd>
+    <dt>Coupling</dt><dd>Person and deck are solved together in every time step.</dd>
+    <dt>Devices</dt><dd>A watch on each wrist and a phone on each hip, with sensor noise.</dd>
+    <dt>Excitation</dt><dd>Three ambient shakers on the deck, plus the person.</dd>
+  </dl>
+</section>
+
+<section>
+  <h2><span class="num">4</span>Code</h2>
+  <p class="hint">Source, data and run instructions: <a href="https://github.com/covdetbaba/human-carried-indirect-sensing">github.com/covdetbaba/human-carried-indirect-sensing</a></p>
+</section>
+
+<footer class="foot">© 2026 Jovdat Babazade. All rights reserved. Free to run and study with credit to the author.</footer>
+</div></body></html>
